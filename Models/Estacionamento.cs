@@ -19,25 +19,38 @@ namespace Estacionamento.Models
         public void AdicionarVeiculo()
         {
             Console.WriteLine("Digite a placa do veículo para estacionar:");
-            string placa = Console.ReadLine();
-            veiculos.Add(placa);
-            Console.WriteLine("Veículo adicionado com sucesso.");
+            string? placa = Console.ReadLine();
+            if (!string.IsNullOrEmpty(placa))
+            {
+                veiculos.Add(placa);
+                Console.WriteLine("Veículo adicionado com sucesso.");
+            }
+            else
+            {
+                Console.WriteLine("Placa inválida.");
+            }
         }
 
         public void RemoverVeiculo()
         {
             Console.WriteLine("Digite a placa do veículo para remover:");
-            string placa = Console.ReadLine();
+            string? placa = Console.ReadLine();
 
-            if (veiculos.Any(x => x.Equals(placa, StringComparison.OrdinalIgnoreCase)))
+            if (!string.IsNullOrEmpty(placa) && veiculos.Any(x => x.Equals(placa, StringComparison.OrdinalIgnoreCase)))
             {
                 Console.WriteLine("Digite a quantidade de horas que o veículo permaneceu estacionado:");
-                int horas = int.Parse(Console.ReadLine());
-
-                decimal valorTotal = precoInicial + precoPorHora * horas;
-
-                veiculos.Remove(placa);
-                Console.WriteLine($"O veículo {placa} foi removido e o preço total foi de: R$ {valorTotal:F2}");
+                string? horasInput = Console.ReadLine();
+                
+                if (int.TryParse(horasInput, out int horas))
+                {
+                    decimal valorTotal = precoInicial + precoPorHora * horas;
+                    veiculos.Remove(placa);
+                    Console.WriteLine($"O veículo {placa} foi removido e o preço total foi de: R$ {valorTotal:F2}");
+                }
+                else
+                {
+                    Console.WriteLine("Número de horas inválido.");
+                }
             }
             else
             {

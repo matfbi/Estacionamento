@@ -5,7 +5,7 @@ Console.OutputEncoding = System.Text.Encoding.UTF8;
 decimal precoInicial = 5.00M;
 decimal precoPorHora = 2.00M;
 
-var estacionamento = new Estacionamento(precoInicial, precoPorHora);
+var estacionamento = new Estacionamento.Models.Estacionamento(precoInicial, precoPorHora);
 
 string opcao = string.Empty;
 
@@ -17,7 +17,7 @@ do
     Console.WriteLine("3 - Listar veículos");
     Console.WriteLine("4 - Encerrar");
 
-    opcao = Console.ReadLine();
+    opcao = Console.ReadLine() ?? string.Empty;
 
     switch (opcao)
     {
